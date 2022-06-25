@@ -18,21 +18,15 @@ rl.on('line', function (line){
 });
 
 function solution(num1, num2){
-	if (num1 === num2)
-		return 1;
-	let queue = [[num1,0]];
-	while(queue.length > 0){
+	let queue = [[num1,1]];
+	while (queue.length > 0){
 		let [num,cnt] = queue.shift();
-		let next1 = num * 2;
-		if (next1 === num2)
-			return cnt + 2;
-		else if (next1 < num2)
-			queue.push([next1, cnt+1]);
-		let next2 = num * 10 + 1;
-		if (next2 === num2)
-			return cnt + 2;
-		else if (next2 < num2)
-			queue.push([next2, cnt + 1]);
+		if (num * 2 === num2 || num * 10 + 1 === num2)
+			return cnt + 1;
+		if (num * 2  < num2)
+			queue.push([num * 2, cnt + 1]);
+		if (num * 10 + 2 < num2)
+			queue.push([num * 10 + 1, cnt + 1]);
 	}
 	return -1;
 }
