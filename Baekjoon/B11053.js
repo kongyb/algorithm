@@ -12,26 +12,21 @@ rl.on('line', function (line){
 })
 .on('close',function(){
 	//input에 입력값 한줄씩있음
-	input.shift();
-	let arr = input.shift().split(' ').map(el => Number(el));
+	let N = Number(input[0]);
+	let arr = input[1].split(' ').map(el => Number(el));
 	console.log(solution(arr));
 	process.exit();
 });
 
 function solution(arr){
 	let incArr = [arr[0]];
-	let len = 1;
 	for (let i=1; i<arr.length; i++){
-		if (arr[i] > incArr[len-1]){
+		if (arr[i] > incArr[incArr.length-1])
 			incArr.push(arr[i]);
-			len++;
-		}
-		else if (arr[i] <= incArr[0])
-			incArr[0] = arr[i];
 		else
 			incArr[findIndex(incArr, arr[i])] = arr[i];
 	}
-	return len;
+	return incArr.length;
 }
 // num의 upperbound찾아서 교체 제일작은 경우, 제일 큰경우는 제외 
 function findIndex(arr, num){
