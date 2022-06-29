@@ -5,8 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-
-
 public class B1707 {
     public static class Pt {
         int value;
