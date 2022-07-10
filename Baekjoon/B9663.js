@@ -18,29 +18,27 @@ rl.on('line', function (line){
 });
 
 function solution(num){
-	let queens = new Array(num+1).fill(0);
-	dfs(queens, 0, num);
-	return queens[num];
+	let board = new Array(num).fill(0);
+	return fillBoard(board, 0);
 }
 
-function dfs(queens, index, num){
-	if (index === num){
-		queens[num]++;
-		return;
-	}
-	let possibleCol = new Array(num).fill(1);
+function fillBoard(board, index){
+	if (index === board.length)
+		return 1;
+	let cnt = 0;
+	let avail = new Array(board.length).fill(1);
 	for (let i=0; i<index; i++){
-		possibleCol[queens[i]] = 0;
-		if (queens[i] - (index - i) >= 0)
-			possibleCol[queens[i] - (index - i)] = 0;
-		if (queens[i] + (index - i) < num)
-			possibleCol[queens[i] + (index - i)] = 0;
+		avail[board[i]] = 0;
+		if (board[i] - (index - i) >= 0)
+			avail[board[i] - (index - i)] = 0;
+		if (board[i] + (index - i) < board.length)
+			avail[board[i] + (index - i)] = 0;
 	}
-	for (let i=0; i<num; i++){
-		if (possibleCol[i] === 1){
-			queens[index] = i;
-			dfs(queens, index+1, num);
+	for (let i=0; i<avail.length; i++){
+		if (avail[i] === 1){
+			board[index] = i;
+			cnt += fillBoard(board, index + 1);
 		}
 	}
-	return;
+	return cnt;
 }
