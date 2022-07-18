@@ -15,15 +15,16 @@ rl.on('line', function (line){
 	let len = Number(input.shift());
 	let arr = input.shift().split(' ').map(el => Number(el));
 	console.log(solution(len, arr));
-	process.exit();
+	// process.exit();
+	return ;
 });
 
 function solution(len, arr){
-	let dp = [arr[0]];
 	let max = arr[0];
-	for (let i=1; i<len; i++){
-		dp.push(Math.max(dp[i-1] + arr[i], arr[i]));
-		max = dp[i] > max ? dp[i] : max;
+	for (let i=1; i<arr.length; i++){
+		if (arr[i] < arr[i-1] + arr[i])
+			arr[i] = arr[i-1] + arr[i];
+		max = Math.max(arr[i], max);
 	}
 	return max;
 }
