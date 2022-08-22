@@ -12,26 +12,19 @@ rl.on('line', function (line){
 })
 .on('close',function(){
 	//input에 입력값 한줄씩있음
-	let cnt = Number(input.shift());
-	let arr = [];
-	for (let i=0; i<cnt; i++)
-		arr.push(Number(input.shift()));
-	console.log(solution(cnt,arr));
+	let cnt = Number(input[0]);
+	let wines = input.slice(1).map(el => Number(el));
+	console.log(solution(cnt, wines));
 	process.exit();
 });
 
-function solution(cnt, arr){
+function solution(cnt, wines){
 	if (cnt === 1)
-		return arr[0];
+		return wines[0];
 	if (cnt === 2)
-		return arr[0] + arr[1];
-	if (cnt === 3)
-		return Math.max(arr[0] + arr[1], arr[0] + arr[2], arr[1] + arr[2]);
-	let max = 0;
-	let dpArr = [arr[0], arr[0] + arr[1], Math.max(arr[0] + arr[1], arr[1] + arr[2], arr[0] + arr[2])];
-	for (let i=3; i<cnt; i++){
-		dpArr.push(Math.max(dpArr[i-1], dpArr[i-2] + arr[i], dpArr[i-3] + arr[i-1] + arr[i]));
-		max = dpArr[i] > max ? dpArr[i] : max;
-	}
-	return max;
+		return wines[0] + wines[1];
+	let dp = [wines[0], wines[0] + wines[1], Math.max(wines[0] + wines[1], wines[1] + wines[2], wines[0] + wines[2])];
+	for (let i=3; i<cnt; i++)
+		dp.push(Math.max(wines[i] + dp[i-2], dp[i-3] + wines[i-1] + wines[i], dp[i-1]));
+	return Math.max(...dp);
 }
