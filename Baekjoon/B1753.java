@@ -3,14 +3,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 
-class Edge{
-    int dest;
-    int weight;
-    Edge(int dest, int weight){
-        this.dest = dest;
-        this.weight = weight;
-    }
-}
 
 public class B1753 {
     public static void main(String[] args) throws IOException {
@@ -69,6 +61,15 @@ public class B1753 {
             }
         }
         return lenArr;
+    }
+
+    static class Edge{
+        int dest;
+        int weight;
+        Edge(int dest, int weight){
+            this.dest = dest;
+            this.weight = weight;
+        }
     }
 
 }
